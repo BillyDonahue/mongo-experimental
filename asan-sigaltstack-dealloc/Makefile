@@ -1,5 +1,5 @@
-TC=/opt/mongodbtoolchain/v3
-#TC=/usr
+#TC=/opt/mongodbtoolchain/v3
+TC=/usr
 
 CXX=${TC}/bin/clang++
 CXXFLAGS=-O2 -std=c++17 -fsanitize=address
