@@ -10,3 +10,6 @@ CC=${CXX}
 LD=${CXX}
 
 circle_test:
+
+test: circle_test
+	./circle_test
