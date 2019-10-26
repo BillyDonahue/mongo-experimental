@@ -1,9 +1,14 @@
 
+#include <algorithm>
 #include <cstdlib>
 #include <cstdio>
+#include <unistd.h>
 #include <iostream>
+#include <fmt/format.h>
+#include <fmt/ostream.h>
 #include <cinttypes>
 #include <memory>
+#include <utility>
 
 struct Raster {
     Raster(size_t w, size_t h) : w(w), h(h), p(std::make_unique<char[]>(w*h)) {
@@ -39,32 +44,40 @@ struct Raster {
         hr();
     }
 
-    void circle(size_t xc, size_t yc, size_t r) {
+    void put8(size_t xc, size_t yc, size_t x, size_t y, char ch) {
+	for (size_t i = 0; i < 8; ++i) {
+	    auto bit = [](auto x, size_t b) {
+		return (x >> b) & 1;
+	    };
+	    size_t xx = x;
+	    size_t yy = y;
+	    if (bit(i, 0))
+		std::swap(xx,yy);
+	    xx *= 1 - 2 * bit(i, 1);
+	    yy *= 1 - 2 * bit(i, 2);
+	    put(xc + xx, yc + yy, ch);
+	}
+    }
+
+    void circle(size_t xc, size_t yc, size_t r, char ch) {
         put(xc, yc, '+');
         int64_t d = 3 - 2 * r;
         size_t x = 0;
         size_t y = r;
-        while (y > x) {
-            ++x;
+
+	// auto out = std::ostream_iterator<char>(std::cout);
+
+        while (y >= x) {
+	    //out = fmt::format_to(out, "(x,y):({:4}, {:4}), d:{:3}\n", x, y, d);
+	    put8(xc, yc, x, y, ch);
+	    auto dd = (4 * x) + 10;
             if (d > 0) {
+		dd += -(4 * y) + 8;
                 --y;
-                d += 4 * (x - y) + 10;
-            } else {
-                d += 4 * x + 6;
             }
-
-            fprintf(stderr, "x:%zu, y:%zu, d:%" PRId64 "\n", x, y, d);
-
-            // 8-way symmetry
-            const char ch = '.';
-            put(xc + x, yc + y, ch);
-            put(xc + x, yc - y, ch);
-            put(xc - x, yc + y, ch);
-            put(xc - x, yc - y, ch);
-            put(xc + y, yc + x, ch);
-            put(xc + y, yc - x, ch);
-            put(xc - y, yc + x, ch);
-            put(xc - y, yc - x, ch);
+            //out = fmt::format_to(out, "dd:{:4}\n", (long long)dd);
+	    d += dd;
+            ++x;
         }
     }
 
@@ -73,9 +86,18 @@ struct Raster {
     std::unique_ptr<char[]> p;
 };
 
-int main(int argc, char**argv) {
-    Raster raster(60, 60);
-    raster.circle(30, 25, 20);
-    raster.print(std::cout);
+int main(int argc, char** argv) {
+    Raster raster(80, 45);
+    int z=0;
+    for (int z=0; z!=10; ++z) {
+	system("clear");
+	raster.clear();
+	raster.circle(21+z, 21, 20, '+');
+	raster.circle(31, 16-z, 15, '*');
+	raster.print(std::cout);
+
+	sleep(1);
+
+    }
     return 0;
 }
