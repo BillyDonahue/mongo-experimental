@@ -1,0 +1,10 @@
+/* GNU ld script */
+
+/* Map the .data.mongodb.table.* sections for any file into the .data section */
+/* https://github.com/antmicro/ecos/blob/master/packages/hal/common/current/include/hal_tables.h */
+SECTIONS {
+    .mongodb.table : {
+	KEEP(*(SORT(.mongodb.table.*))) ;
+	. = ALIGN (4);
+    }
+}
