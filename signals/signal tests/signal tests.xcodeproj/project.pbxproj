@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		28EA2EA6236E6AD700B8E570 /* signals.c in Sources */ = {isa = PBXBuildFile; fileRef = 28EA2EA5236E6AD700B8E570 /* signals.c */; };
+		28EA2EA6236E6AD700B8E570 /* sigwait.c in Sources */ = {isa = PBXBuildFile; fileRef = 28EA2EA5236E6AD700B8E570 /* sigwait.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		28EA2E9B236E6AC000B8E570 /* signal tests */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "signal tests"; sourceTree = BUILT_PRODUCTS_DIR; };
-		28EA2EA5236E6AD700B8E570 /* signals.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = signals.c; path = "/Users/billy/prog/BillyDonahue/mongo-experimental/signals/signal tests/signal tests/signals.c"; sourceTree = "<absolute>"; };
+		28EA2EA5236E6AD700B8E570 /* sigwait.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = sigwait.c; path = "/Users/billy/prog/BillyDonahue/mongo-experimental/signals/signal tests/signal tests/sigwait.c"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +57,7 @@
 		28EA2E9D236E6AC000B8E570 /* signal tests */ = {
 			isa = PBXGroup;
 			children = (
-				28EA2EA5236E6AD700B8E570 /* signals.c */,
+				28EA2EA5236E6AD700B8E570 /* sigwait.c */,
 			);
 			path = "signal tests";
 			sourceTree = "<group>";
@@ -119,7 +119,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28EA2EA6236E6AD700B8E570 /* signals.c in Sources */,
+				28EA2EA6236E6AD700B8E570 /* sigwait.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

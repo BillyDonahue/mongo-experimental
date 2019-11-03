@@ -4,6 +4,7 @@
 #include <signal.h>
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 int quitFlag; /* set nonzero by thread */
 sigset_t mask;
@@ -20,10 +21,10 @@ void* thread(void* arg) {
         }
         switch (sig) {
             case SIGINT:
-                printf("\nSIGINT\n");
+                fprintf(stderr, "SIGINT\n");
                 break;
             case SIGQUIT:
-                printf("\nSIGQUIT\n");
+                fprintf(stderr, "SIGQUIT\n");
                 pthread_mutex_lock(&lock);
                 quitFlag = 1;
                 pthread_mutex_unlock(&lock);
@@ -76,6 +77,11 @@ int main() {
         return -1;
     }
 
+    sleep(1);
+    kill(getpid(), SIGINT);
+    sleep(1);
+    kill(getpid(), SIGQUIT);
+
     pthread_mutex_lock(&lock);
     while (quitFlag == 0)
         pthread_cond_wait(&waitloc, &lock);
@@ -85,6 +91,7 @@ int main() {
         fprintf(stderr, "pthread_join: %s", strerror(err));
         return -1;
     }
+    fprintf(stderr, "restore progmask\n");
     if (sigprocmask(SIG_SETMASK, &oldmask, NULL) < 0) {
         fprintf(stderr, "sigprocmask: %s\n", strerror(err));
         exit(-1);
