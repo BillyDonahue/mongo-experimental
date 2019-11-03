@@ -10,11 +10,6 @@ sigset_t mask;
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t waitloc = PTHREAD_COND_INITIALIZER;
 
-int handler(int sig, siginfo_t* info, void*context) {
-    switch (sig){}
-    return 0;
-}
-
 void* thread(void* arg) {
     for (;;) {
         int sig;
@@ -69,6 +64,7 @@ int main() {
     sigset_t oldmask;
 
     int err;
+
     if ((err = pthread_sigmask(SIG_BLOCK, &mask, &oldmask)) != 0) {
         fprintf(stderr, "pthread_sigmask: %s\n", strerror(err));
         exit(-1);
