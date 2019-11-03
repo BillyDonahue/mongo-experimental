@@ -2,9 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:Makefile">
+      location = "group:signal tests/signal tests.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:signals.c">
+      location = "group:Makefile">
    </FileRef>
 </Workspace>
