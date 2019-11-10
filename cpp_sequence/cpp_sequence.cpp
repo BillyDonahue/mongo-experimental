@@ -6,10 +6,10 @@
 #define S1 X
 
 // Challenge: Make a tuple of digits that can be applied to a function macro.
-#define m Dec
+#define D0(a,b,c,d) Dec(a,b,c,d),
 #define D1(a,b,c) \
-    m(a,b,c,0), m(a,b,c,1), m(a,b,c,2), m(a,b,c,3), m(a,b,c,4), \
-    m(a,b,c,5), m(a,b,c,6), m(a,b,c,7), m(a,b,c,8), m(a,b,c,9),
+    D0(a,b,c,0) D0(a,b,c,1) D0(a,b,c,2) D0(a,b,c,3) D0(a,b,c,4) \
+    D0(a,b,c,5) D0(a,b,c,6) D0(a,b,c,7) D0(a,b,c,8) D0(a,b,c,9)
 #define D2(a,b) \
     D1(a,b,0) D1(a,b,1) D1(a,b,2) D1(a,b,3) D1(a,b,4) \
     D1(a,b,5) D1(a,b,6) D1(a,b,7) D1(a,b,8) D1(a,b,9)
