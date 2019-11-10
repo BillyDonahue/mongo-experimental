@@ -5,21 +5,23 @@
 #define S0 _
 #define S1 X
 
-#define DECADE(F, m, ...) \
-    F(m(0),m(1),m(2),m(3),m(4),m(5),m(6),m(7),m(8),m(9))
+// Challenge: Make a tuple of digits that can be applied to a function macro.
+#define m Dec
+#define D1(a,b,c) \
+    m(a,b,c,0), m(a,b,c,1), m(a,b,c,2), m(a,b,c,3), m(a,b,c,4), \
+    m(a,b,c,5), m(a,b,c,6), m(a,b,c,7), m(a,b,c,8), m(a,b,c,9),
+#define D2(a,b) \
+    D1(a,b,0) D1(a,b,1) D1(a,b,2) D1(a,b,3) D1(a,b,4) \
+    D1(a,b,5) D1(a,b,6) D1(a,b,7) D1(a,b,8) D1(a,b,9)
+#define D3(a) \
+    D2(a,0) D2(a,1) D2(a,2) D2(a,3) D2(a,4) D2(a,5) \
+    D2(a,6) D2(a,7) D2(a,8) D2(a,9)
+#define D4 D3(0) D3(1) D3(2) D3(3) D3(4) D3(5) D3(6) D3(7) D3(8) D3(9) 
 
-#define DECADE0(F,...) DECADE(F, __VA_ARGS__)
-#define DECADE1(F,...) DECADE(F, DECADE0(F,__VA_ARGS__))
-#define DECADE2(F,...) DECADE(F, DECADE1(F,__VA_ARGS__))
-
-#define E2(F,pre) DECADE2(F,pre)
 
 struct Dec { int x; };
 Dec decs[] = {
-
-#define M(...) Dec(__VA_ARGS__)
-  E2(M,),
-
+  D4
 };
 
 int main() {
